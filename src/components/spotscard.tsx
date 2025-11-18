@@ -69,7 +69,7 @@ export default function SpotsCard({ zones }: SpotsCardProps) {
           <CircularProgressLabel>
             <Box textAlign="center">
               <Text fontSize="sm" color={textSecondary}>
-                Occupancy
+                Availability
               </Text>
               <Text fontSize="lg" fontWeight="bold" color={textPrimary}>
                 {occupancy}%
