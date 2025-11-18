@@ -1,24 +1,48 @@
-import Link from "next/link";
+import { Box, Modal, VStack} from "@chakra-ui/react"
+import MapCard from "../components/mapcard";
+import Search from "../components/search";
+import SpotsCard from "../components/spotscard";
+import ZoneList from "../components/zones";
+import { useState } from "react";
+import HeaderComp from "../components/headercard";
 
-export default function Home() {
-  return (
-    <div className="w-full max-w-md bg-white shadow-md rounded-2xl p-5 space-y-4">
-      <h2 className="text-xl font-semibold">Welcome</h2>
-      <Link href="/zones" className="block">
-        <button
-          className="w-full bg-blue-600 text-white py-3 rounded-xl text-lg shadow hover:bg-blue-700 transition"
-        >
-          View Parking Zones
-        </button>
-      </Link>
 
-      <Link href="/map" className="block">
-        <button
-          className="w-full bg-green-600 text-white py-3 rounded-xl text-lg shadow hover:bg-green-700 transition"
-        >
-          Live Map View
-        </button>
-      </Link>
-    </div>
-  );
+interface Zone {
+  id: string;
+  name: string;
+  capacity: number;
+  free: number;
+  status: "green" | "yellow" | "red";
+  href: string;
 }
+
+const ZONES: Zone[] = [
+  { id: "A", name: "Zone A", free: 7, capacity: 40,  status: "green", href: "https://maps.app.goo.gl/j9p4K5ur8uEcbN3H8?g_st=ipc" },
+  { id: "B", name: "Zone B", free: 4, capacity: 50, status: "yellow", href: "https://maps.app.goo.gl/djyBmFttehQb8xRUA?g_st=ipc" },
+  { id: "C", name: "Zone C", free: 0, capacity: 60, status: "red", href: "https://maps.app.goo.gl/vethEx6Dpzdo8Jzz8?g_st=ipc"},
+];
+
+const Index = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredZones = ZONES.filter((zone) =>
+    zone.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+
+
+  return(
+    <Box p={4} minH="100vh" >
+      <HeaderComp/>
+      <VStack spacing={4} align="stretch" px={{base: 2, md: 10}} py={20}>
+        <SpotsCard zones={ZONES}/>
+        <Search onSearchChange={(value: string) => setSearchQuery(value)}/>
+        <ZoneList zones={filteredZones}/>
+        <MapCard/>
+      </VStack>
+    </Box>
+
+  )
+};
+
+export default Index;
