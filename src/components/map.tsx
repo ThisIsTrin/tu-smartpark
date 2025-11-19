@@ -26,7 +26,7 @@ export const createLabelIcon = (label: string, color: string) =>
   });
 
 const Map = ({zones}) => {
-  const [position, setPosition] = useState<LatLngTuple>([14.069668,100.607863]);
+  const [position, setPosition] = useState<LatLngTuple>([14.068871,100.607557]);
   const { colorMode } = useColorMode();
 
   useEffect(() => {
