@@ -14,8 +14,10 @@ import {
   DrawerCloseButton,
   useDisclosure,
   HStack,
+  useColorMode,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { getStatusColor } from "./utils";
 
 export default function ZoneList({ zones }) {
   const cardBg = useColorModeValue("white", "gray.700");
@@ -33,19 +35,13 @@ export default function ZoneList({ zones }) {
     onOpen();
   };
 
-  // Function to get status color
-  const getStatusColor = (zone) =>
-    zone.status === "green"
-      ? useColorModeValue("green.400", "green.300")
-      : zone.status === "yellow"
-      ? useColorModeValue("yellow.400", "yellow.300")
-      : useColorModeValue("red.400", "red.300");
+  const { colorMode } = useColorMode();
 
   return (
     <>
       <Grid templateColumns="1fr" gap={3} mb={6}>
         {zones.map((zone) => {
-          const statusColor = getStatusColor(zone);
+          const statusColor = getStatusColor(zone.status, colorMode);
 
           return (
             <Box
@@ -122,7 +118,7 @@ export default function ZoneList({ zones }) {
                 <Text fontSize="xs" color={textSecondary}>
                   {selectedZone.name}
                 </Text>
-                <Text fontSize="lg" fontWeight="bold" color={getStatusColor(selectedZone)}>
+                <Text fontSize="lg" fontWeight="bold" color={getStatusColor(selectedZone, colorMode)}>
                   {selectedZone.free > 0 ? selectedZone.free : "None"}
                 </Text>
               </DrawerHeader>

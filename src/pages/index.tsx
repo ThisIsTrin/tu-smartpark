@@ -14,12 +14,13 @@ interface Zone {
   free: number;
   status: "green" | "yellow" | "red";
   href: string;
+  coords: L.LatLngExpression
 }
 
 const ZONES: Zone[] = [
-  { id: "A", name: "Zone A", free: 7, capacity: 40,  status: "green", href: "https://maps.app.goo.gl/j9p4K5ur8uEcbN3H8?g_st=ipc" },
-  { id: "B", name: "Zone B", free: 4, capacity: 50, status: "yellow", href: "https://maps.app.goo.gl/djyBmFttehQb8xRUA?g_st=ipc" },
-  { id: "C", name: "Zone C", free: 0, capacity: 60, status: "red", href: "https://maps.app.goo.gl/vethEx6Dpzdo8Jzz8?g_st=ipc"},
+  { id: "A", name: "Zone A", free: 7, capacity: 40,  status: "green", href: "https://maps.app.goo.gl/j9p4K5ur8uEcbN3H8?g_st=ipc", coords: [14.074523,100.602241]},
+  { id: "B", name: "Zone B", free: 4, capacity: 50, status: "yellow", href: "https://maps.app.goo.gl/djyBmFttehQb8xRUA?g_st=ipc", coords: [14.073110,100.616623]},
+  { id: "C", name: "Zone C", free: 0, capacity: 60, status: "red", href: "https://maps.app.goo.gl/vethEx6Dpzdo8Jzz8?g_st=ipc", coords: [14.070734,100.607740]},
 ];
 
 const Index = () => {
@@ -38,7 +39,7 @@ const Index = () => {
         <SpotsCard zones={ZONES}/>
         <Search onSearchChange={(value: string) => setSearchQuery(value)}/>
         <ZoneList zones={filteredZones}/>
-        <MapCard/>
+        <MapCard zones={ZONES}/>
       </VStack>
     </Box>
 

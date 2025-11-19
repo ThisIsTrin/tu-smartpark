@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 
 const Map = dynamic(() => import('./map'), { ssr: false });
 
-export default function MapCard() {
+export default function MapCard({zones}) {
   const cardBg = useColorModeValue("white", "gray.700");
   const cardShadow = useColorModeValue("md", "dark-md");
   const textPrimary = useColorModeValue("gray.800", "whiteAlpha.900");
@@ -36,7 +36,7 @@ export default function MapCard() {
 
       {/* Placeholder map area */}
       <Flex h="60" borderRadius="xl" overflow="hidden">
-        <Map/>
+        <Map zones={zones}/>
       </Flex>
     </Box>
   );
